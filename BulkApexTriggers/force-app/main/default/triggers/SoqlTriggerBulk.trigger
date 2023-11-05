@@ -1,4 +1,4 @@
-trigger SoqlTriggerBulk on Account (before insert) {
+trigger SoqlTriggerBulk on Account (after update) {
     // Perform SOQL query once.    
     // Get the accounts and their related opportunities.
     List<Acocunt> acctsWithOpps = [SELECT Id,
