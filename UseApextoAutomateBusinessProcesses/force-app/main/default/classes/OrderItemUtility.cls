@@ -5,21 +5,24 @@ public with sharing class OrderItemUtility {
 
         //TO DO 3.1: Determine if we have a bonus product and get its ID to add to the order
         
-            //TO DO 2.1: Create a list to store any new bouquets we'll insert later
-  
-            //TO DO 2.2: Loop over orders in ordersFromTrigger, for each order (called currentOrder) do something
-  
-                //TO DO 2.3: Verify the order status is 'Activated'
-  
-                    //TO DO 2.4: Create a new bouquet and set values
-  
-                    //TO DO 2.5: Add the freeBouquet sObject to your list
-  
-                //TO DO 2.6: Close the "if" and "for loop" sections
-  
-            //TO DO 3.2: Use DML to add the new list of newBouquets
-  
-        //TO DO 3.3: Close the if section
-        
+         
+            List<OrderItem> newBouquets = new List<OrderItem>();
+
+            for (Order currentOrder : ordersFromTrigger) {
+
+                if (currentOrder.Status == 'Activated') {
+                    OrderItem freeBouquet = new OrderItem(
+                        OrderId = currentOrder.id,
+                        //PricebookEntryId = entry.id,
+                        numberOfFlowers__c = 3,
+                        description = 'FREE Bouquet',
+                        Quantity = 1,
+                        colorTheme__c = 'Spectacular Sunset',
+                        percentOfOpening__c = 0,
+                        UnitPrice = 0.00
+                    );
+                    newBouquets.add(freeBouquet);
+            }
+        }
     } // end method
 } // end class
