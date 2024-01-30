@@ -18,8 +18,6 @@ public with sharing class OrderItemUtility {
             if (entryList.size() > 0) {
                 entry = entryList[0];
             }
-        }
-        
          
         List<OrderItem> newBouquets = new List<OrderItem>();
 
@@ -28,7 +26,7 @@ public with sharing class OrderItemUtility {
             if (currentOrder.Status == 'Activated') {
                 OrderItem freeBouquet = new OrderItem(
                     OrderId = currentOrder.id,
-                    //PricebookEntryId = entry.id,
+                    PricebookEntryId = entry.id,
                     numberOfFlowers__c = 3,
                     description = 'FREE Bouquet',
                     Quantity = 1,
@@ -37,7 +35,10 @@ public with sharing class OrderItemUtility {
                     UnitPrice = 0.00
                 );
                 newBouquets.add(freeBouquet);
-        }
-    }
+        } //if
+    } //loop
+
+    insert newBouquets;
+} //if
     } // end method
 } // end class
